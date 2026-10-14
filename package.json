@@ -1,0 +1,48 @@
+{
+  "name": "web-security-labs",
+  "version": "1.0.0",
+  "private": false,
+  "description": "Hands-on OWASP-style web security labs with vulnerable + secure variants and automated test coverage.",
+  "main": "01-idor/secure.js",
+  "scripts": {
+    "test": "node scripts/run-all-tests.js",
+    "test:01": "node 01-idor/test.js",
+    "test:02": "node 02-xss/test.js",
+    "test:03": "node 03-broken-auth/test.js",
+    "test:04": "node 04-logic-flaw/test.js",
+    "run:01-vulnerable": "node 01-idor/vulnerable.js",
+    "run:01-secure": "node 01-idor/secure.js",
+    "run:02-vulnerable": "node 02-xss/vulnerable.js",
+    "run:02-secure": "node 02-xss/secure.js",
+    "run:03-vulnerable": "node 03-broken-auth/vulnerable.js",
+    "run:03-secure": "node 03-broken-auth/secure.js",
+    "run:04-vulnerable": "node 04-logic-flaw/vulnerable.js",
+    "run:04-secure": "node 04-logic-flaw/secure.js"
+  },
+  "keywords": [
+    "security",
+    "owasp",
+    "appsec",
+    "idor",
+    "xss",
+    "broken-auth",
+    "logic-flaw",
+    "labs",
+    "vulnerabilities",
+    "secure-coding"
+  ],
+  "author": "Priyanshu Kumar Thakur (Gravion)",
+  "license": "MIT",
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "files": [
+    "01-idor/",
+    "02-xss/",
+    "03-broken-auth/",
+    "04-logic-flaw/",
+    "scripts/",
+    "README.md",
+    "LICENSE"
+  ]
+}

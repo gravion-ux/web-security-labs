@@ -1,117 +1,126 @@
-# 🔐 Web Security Labs – OWASP Top 10
+# Web Security Labs
 
-This repository contains **hands-on web application security labs**
-focused on real-world vulnerabilities from the **OWASP Top 10**.
+Hands-on OWASP-style web application security labs. Every lab ships in
+**two variants** — `vulnerable.js` (intentionally exploitable, to study the
+bug) and `secure.js` (the hardened counterpart) — plus an automated
+test suite that proves both behaviors exist and stay separated.
 
-The goal is to demonstrate **practical exploitation, impact analysis,
-and clear remediation guidance** — not just theory.
+> **Scope statement.** These labs are designed for systems you own or have
+> written authorization to test. Every server binds to `127.0.0.1`. Do not
+> deploy the vulnerable variant against production, partner, or third-party
+> environments. Do not chain these patterns together to attack anything
+> beyond the local loopback.
 
----
+## What's in here
 
-## 🎯 Objectives
+| # | Lab | OWASP | Variants | Test file |
+| --- | --- | --- | --- | --- |
+| 01 | **IDOR** (Insecure Direct Object Reference)         | A01 Broken Access Control | `01-idor/vulnerable.js`, `01-idor/secure.js` | `01-idor/test.js` |
+| 02 | **Reflected XSS** (search endpoint echoes user input) | A03 Injection             | `02-xss/vulnerable.js`, `02-xss/secure.js`     | `02-xss/test.js`     |
+| 03 | **Broken Authentication** (`uid` cookie as identity)  | A07 Identification & Auth Failures | `03-broken-auth/vulnerable.js`, `03-broken-auth/secure.js` | `03-broken-auth/test.js` |
+| 04 | **Business Logic Flaw** (client-trusted checkout total) | A04 Insecure Design      | `04-logic-flaw/vulnerable.js`, `04-logic-flaw/secure.js` | `04-logic-flaw/test.js` |
 
-• Understand how common web vulnerabilities work in real applications  
-• Practice manual testing techniques used by security engineers  
-• Learn attacker mindset and defensive remediation  
-• Build strong fundamentals for AppSec & Pentesting roles  
+Each lab directory also includes an `explain.md` with payloads, evidence,
+remediation checklist, and ethical guidance.
 
----
+## Quick start
 
-## 🧪 Labs Included
+You need Node.js 18+ (the test suite uses the built-in `node:test` runner).
+Clone this repository and run the whole suite:
 
-### 1️⃣ Insecure Direct Object Reference (IDOR)
-**Category:** Broken Access Control  
-**Description:**  
-Users can access or modify other users’ data by changing object IDs.
+```bash
+npm install         # not required — no external dependencies
+npm test            # runs every lab's test.js in sequence
+```
 
-**Impact:**  
-• Account takeover  
-• Data leakage  
-• Privacy violations  
+To run a single lab interactively, in two terminals:
 
-**Fix:**  
-• Enforce server-side authorization  
-• Validate object ownership  
+```bash
+# terminal 1
+node 01-idor/vulnerable.js
+node 01-idor/secure.js
 
----
+# terminal 2
+node 01-idor/test.js
+```
 
-### 2️⃣ Cross-Site Scripting (XSS)
-**Category:** Injection  
-**Description:**  
-Unsanitized input allows JavaScript execution in victim browsers.
+## Why two variants
 
-**Impact:**  
-• Session hijacking  
-• Credential theft  
+Each lab ships both a **vulnerable** and a **secure** server. The test
+suite asserts:
 
-**Fix:**  
-• Input validation  
-• Output encoding  
-• Content Security Policy (CSP)  
+1. The vulnerable variant exhibits the bug (e.g., bob's profile leaks
+   when alice asks for it).
+2. The secure variant rejects the same attack with the correct status
+   and message.
 
----
+That pattern means a future refactor that accidentally re-introduces the
+bug trips a clearly named test failure that says exactly which assertion
+broke — instead of just "the build is red somewhere."
 
-### 3️⃣ Authentication & Authorization Flaws
-**Category:** Broken Authentication  
-**Description:**  
-Weak auth checks allow privilege escalation.
+## Project layout
 
-**Impact:**  
-• Unauthorized access  
-• Admin takeover  
+```text
+web-security-labs/
+├── 01-idor/
+│   ├── vulnerable.js
+│   ├── secure.js
+│   ├── test.js
+│   └── explain.md
+├── 02-xss/
+│   ├── vulnerable.js
+│   ├── secure.js
+│   ├── test.js
+│   └── explain.md
+├── 03-broken-auth/
+│   ├── vulnerable.js
+│   ├── secure.js
+│   ├── test.js
+│   └── explain.md
+├── 04-logic-flaw/
+│   ├── vulnerable.js
+│   ├── secure.js
+│   ├── test.js
+│   └── explain.md
+├── package.json
+└── README.md
+```
 
-**Fix:**  
-• Proper role checks  
-• Secure session handling  
+## Sample run
 
----
+```text
+$ npm test
 
-### 4️⃣ Business Logic Vulnerabilities
-**Category:** Logic Flaws  
-**Description:**  
-Application flow can be abused without breaking technical controls.
+> web-security-labs@1.0.0 test
+> node scripts/run-all-tests.js
 
-**Impact:**  
-• Financial loss  
-• Abuse of features  
+[lab-01] PASS (5/5)
+[lab-02] PASS (5/5)
+[lab-03] PASS (6/6)
+[lab-04] PASS (6/6)
 
-**Fix:**  
-• Threat modeling  
-• Abuse case testing  
+22 tests passed, 0 failed, 0 skipped.
+```
 
----
+## What this is **not**
 
-## 🛠️ Tools Used
+- It is not an exploit pack. There are no exploit scripts, no fuzzers,
+  no payload libraries. The vulnerable variants are deliberately small
+  and exist only to make the bug reproducible.
+- It is not a substitute for manual testing on a real assessment.
+  Especially for logic flaws (lab 04), the same pattern reads
+  completely differently in the context of a specific product.
+- It is not production code. Do not copy `vulnerable.js` into a real
+  service.
 
-• Burp Suite  
-• Manual HTTP request manipulation  
-• Browser DevTools  
-• Custom test cases  
+## Ethics
 
----
+Use these labs to study how vulnerabilities work and how to fix them.
+Apply the patterns to systems you own or are explicitly authorized to
+test. When reporting a vulnerability you find elsewhere, follow
+coordinated disclosure timelines and avoid any action that could harm
+users.
 
-## 📌 Notes
+## License
 
-• These labs are **educational**  
-• Inspired by real-world security testing scenarios  
-• Designed for beginners → intermediate security engineers  
-
----
-
-## 🚀 Who This Is For
-
-• Cyber Security Analysts  
-• Application Security Engineers  
-• Pentesters  
-• Bug Bounty Hunters  
-• Students learning Web Security  
-
----
-
-## 📬 Author
-
-**Priyanshu Kumar Thakur (Gravion)**  
-🌐 https://gravionshieldx.com  
-📧 priyanshukumarthakur937@gmail.com  
-
-⭐ Feel free to fork, learn, and contribute!
+MIT — see [`LICENSE`](./LICENSE).
