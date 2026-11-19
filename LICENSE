@@ -19,12 +19,3 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
-
-ADDITIONAL ETHICAL NOTICE
-
-This repository contains deliberately vulnerable code for educational
-research. The vulnerable variants are intended to be run only against the
-loopback address (127.0.0.1) and only against data the operator controls.
-Do not point these lab servers at production systems, real customer data,
-or any third-party service. Use coordinated-disclosure processes when
-reporting vulnerabilities you discover elsewhere.
