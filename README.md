@@ -1,5 +1,9 @@
 # Web Security Labs
 
+![Demo](docs/demo.png)
+
+*Demo: the full lab test suite — all four labs passing, vulnerable and secure variants verified.*
+
 Hands-on OWASP-style web application security labs. Every lab ships in
 **two variants** — `vulnerable.js` (intentionally exploitable, to study the
 bug) and `secure.js` (the hardened counterpart) — plus an automated
