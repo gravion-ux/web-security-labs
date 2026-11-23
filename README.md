@@ -1,4 +1,5 @@
 # Web Security Labs
+[![CI](https://github.com/gravion-ux/web-security-labs/actions/workflows/ci.yml/badge.svg)](https://github.com/gravion-ux/web-security-labs/actions/workflows/ci.yml)
 
 ![Demo](docs/demo.png)
 
